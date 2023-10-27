@@ -4,6 +4,8 @@ const express = require ('express');
 //importamos nuestros archivos de routes
 const apiCategoria=require('./routes/apiCategoria');
 const apiClientes=require('./routes/apiClientes');
+const apiProductos = require('./routes/apiProductos');
+const apiVentas = require('./routes/apiVentas');
 
 
 
@@ -18,6 +20,9 @@ app.use('/Categorias/',apiCategoria);
 
 app.use('/Clientes/',apiClientes);
 
+app.use('/Productos/',apiProductos)
+
+app.use('/Ventas/',apiVentas)
 
 //puerto que se comunica el frontEnd
 app.listen(3000);

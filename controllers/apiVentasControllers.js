@@ -1,10 +1,10 @@
 //requerido para la conexion de la BD
 const db= require('../database/conn');
 
-const getProductos= async(req, res)=>{
+const getVentas= async(req, res)=>{
 
     //query que le pedimos a la BD
-    const querySQL= `SELECT * FROM tbl_productos;`;
+    const querySQL= `SELECT * FROM tbl_ventas`;
 
      //variable para que espere la conexion a la BD y realice la query que pedimos
      const resultado= await db.query(querySQL);
@@ -19,7 +19,7 @@ const getProductos= async(req, res)=>{
 
 
 
-const getIdProducto= async(req,res)=>{
+const getIdVenta= async(req,res)=>{
 
     //parametros que nos envia el frontEnd
     const params=[
@@ -27,7 +27,7 @@ const getIdProducto= async(req,res)=>{
     ];
 
     //query que le pedimos a la BD
-    const querySQL= `SELECT * FROM tbl_productos WHERE ID=$1`;
+    const querySQL= `SELECT * FROM tbl_ventas WHERE id=$1`;
 
     //variable para que espere la conexion a la BD y realice la query que pedimos
     const resultado= await db.query(querySQL,params);
@@ -42,20 +42,20 @@ const getIdProducto= async(req,res)=>{
 
 
 
-const postProducto= async(req, res)=>{
+const postVenta= async(req, res)=>{
 
     //parametros que nos envia el frontEnd
     const params=[
-        req.body.nombre_Producto,
-        req.body.descripcion,
-        req.body.precio,
-        req.body.Id_categoria,
-        req.body.Stock
+        req.body.id_producto,
+        req.body.id_categoria,
+        req.body.id_cliente,
+        req.body.cantidad,
+        req.body.fecha_venta
     ]
 
     //query que le pedimos a la BD
-    querySQL= `INSERT INTO tbl_productos
-    ( nombre_Producto, descripcion, precio, Id_categoria, stock )
+    querySQL= `INSERT INTO tbl_ventas
+    ( id_producto, id_categoria, id_cliente, cantidad, fecha_venta )
     VALUES($1, $2, $3, $4, $5) returning *`;
 
     try{
@@ -73,20 +73,20 @@ const postProducto= async(req, res)=>{
 
 
 
-const putProducto= async(req, res)=>{
+const putVenta= async(req, res)=>{
 
     //parametros que nos envia el frontEnd
     const params=[
-        req.body.nombre_Producto,
-        req.body.descripcion,
-        req.body.precio,
-        req.body.Id_categoria,
-        req.body.stock,
+        req.body.id_producto,
+        req.body.id_categoria,
+        req.body.id_cliente,
+        req.body.cantidad,
+        req.body.fecha_venta,
         req.params.id
     ];
 
     //query que le pedimos a la BD
-    const querySQL=`UPDATE tbl_productos SET nombre_Producto= $1, descripcion=$2, precio= $3, Id_categoria=$4, stock=$5 WHERE id= $6 returning *`;
+    const querySQL=`UPDATE tbl_ventas SET id_producto= $1, id_categoria=$2, id_cliente= $3, cantidad=$4, fecha_venta=$5 WHERE id= $6 returning *`;
 
     try{
         //variable para que espere la conexion a la BD y realice la query que pedimos
@@ -104,7 +104,7 @@ const putProducto= async(req, res)=>{
 
 
 
-const deleteProducto= async(req,res)=>{
+const deleteVenta= async(req,res)=>{
  
     //parametros que nos envia el frontEnd
     const params=[
@@ -112,7 +112,7 @@ const deleteProducto= async(req,res)=>{
     ];
 
     //query que le pedimos a la BD
-    const querySQL= `DELETE FROM tbl_productos WHERE id=$1;`;
+    const querySQL= `DELETE FROM tbl_ventas WHERE id=$1;`;
 
     try{
         //variable para que espere la conexion a la BD y realice la query que pedimos
@@ -130,8 +130,5 @@ const deleteProducto= async(req,res)=>{
 
 //exportamos los metodos para que los use routes/apiCategoria
 module.exports={
-    getProductos, getIdProducto, postProducto, putProducto, deleteProducto
+    getVentas, getIdVenta, postVenta, putVenta, deleteVenta
 };
-
-
-

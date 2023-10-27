@@ -27,3 +27,10 @@ WHERE id=1;
 
 
 DROP TABLE tbl_ventas CASCADE
+
+
+--INNER JOINS CATEGORIA CON VENTAS
+SELECT a.id_producto, b.nombre_categoria, a.id_cliente, a.cantidad, a.fecha_venta
+FROM tbl_ventas a
+INNER JOIN tbl_categoria b
+ON b.id= a.id_categoria;

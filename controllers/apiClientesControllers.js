@@ -7,7 +7,7 @@ const getClientes= async(req,res)=>{
     const querySQL= `SELECT * FROM tbl_clientes`;
 
    //variable para que espere la conexion a la BD y realice la query que pedimos
-   const resultado= await db.query(querySQL,params);
+   const resultado= await db.query(querySQL);
 
    if(resultado.length>0){
        //resultado que queremos nos devuelva y en que formato
@@ -54,9 +54,7 @@ const postClientes= async(req,res)=>{
     ];
 
     //query que le pedimos a la BD
-    const querySQL=`INSERT INTO tbl_clientes
-    ( nombre, apellido, correo_Electronico, telefono)
-    VALUES($1, $2, $3, $4) retuning *`;
+    const querySQL=`INSERT INTO tbl_clientes (nombre, apellido, correo_Electronico, telefono) VALUES($1, $2, $3, $4) returning *`;
 
     
     try{
@@ -86,9 +84,7 @@ const putClientes= async(req,res)=>{
     ];
 
     //query que le pedimos a la BD
-    const querySQL= `UPDATE tbl_clientes
-    SET nombre= $1, apellido=$2, correo_Electronico= $3,telefono=$4
-    WHERE id= $5  returning *`;
+    const querySQL= `UPDATE tbl_clientes SET nombre= $1, apellido=$2, correo_Electronico= $3,telefono=$4 WHERE id= $5  returning *`;
 
     
     try{

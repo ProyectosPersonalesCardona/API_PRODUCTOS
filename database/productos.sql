@@ -20,10 +20,17 @@ VALUES('Refrigeradora', '6 puertas Multiusos', 45750, 1, 14);
 
 UPDATE tbl_productos
 SET nombre_Producto= 'Nevera', descripcion='4 puertas Multiusos', precio= 45750.99,Id_categoria=1, stock=15
-WHERE id= 1;
+WHERE id= 2;
 
 DELETE FROM tbl_productos
 WHERE id=1;
 
 
 DROP TABLE tbl_productos CASCADE
+
+
+--INNER JOINS  //llave primaria padre llave foranea de la hija
+SELECT a.id, a.nombre_Producto, a.descripcion, a.precio, b.nombre_categoria, a.stock 
+FROM tbl_productos a
+INNER JOIN tbl_categoria b
+on b.id =a.Id_categoria;
